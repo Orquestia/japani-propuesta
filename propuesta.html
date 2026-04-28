@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica OrquestIA: Transformando JAPANI DIGITAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #4F46E5, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title {
+            font-size: 2.5rem; /* Equivalent to text-4xl */
+            font-weight: 900; /* Equivalent to font-black */
+            line-height: 1.2;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Styles for the modal message */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1F2937; /* gray-800 */
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            color: #D1D5DB; /* gray-400 */
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header - Improved with ARIA role -->
+    <header role="banner" class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-700 rounded-b-lg shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">
+                <span class="text-indigo-400">Orquest</span><span class="text-pink-400">IA</span>
+            </h1>
+            <!-- Added aria-label for better accessibility -->
+            <a href="#inversion" aria-label="Ver Propuesta Económica Detallada" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 transform hover:scale-105 shadow-md">Ver Propuesta Económica</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section - Enhanced Title and Call to Action -->
+        <section role="region" aria-labelledby="hero-title" class="py-20 md:py-32 bg-gray-900">
+            <div class="container mx-auto px-6 text-center fade-in">
+                <h2 id="hero-title" class="text-4xl md:text-6xl font-black uppercase tracking-wider">
+                    <span class="gradient-text">Propuesta Estratégica de Transformación</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-400 mt-4">Para la construcción del Ecosistema del Futuro:</p>
+                <h1 class="text-6xl md:text-8xl font-black text-white mt-2">JAPANI DIGITAL</h1>
+                <p class="mt-8 max-w-3xl mx-auto text-gray-300 text-lg">
+                    Una alianza estratégica para revolucionar la industria de repuestos en LATAM, uniendo su visión de liderazgo con nuestra experticia en **Inteligencia Artificial, automatización y desarrollo tecnológico de vanguardia**.
+                </p>
+                <div class="mt-10">
+                    <!-- Stronger Call to Action -->
+                    <a href="#roadmap" aria-label="Explorar el Plan de Acción Detallado" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 inline-block transform hover:scale-105 shadow-lg">Descubra Nuestro Plan de Acción</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section - Clearer Value Proposition -->
+        <section role="region" aria-labelledby="vision-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-12">
+                    <h2 id="vision-title" class="section-title text-white">Comprendemos y Potenciamos su Visión Estratégica</h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Hemos realizado un análisis profundo de su plan 4.0. Nuestro objetivo es crear una <strong>arquitectura digital centralizada y optimizada</strong> que impulse el crecimiento y la eficiencia de JAPANI a escala global.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-400">Eficiencia Operativa Redefinida</h3>
+                        <p class="text-gray-400 mt-2">Conectamos logística, ventas, gestión de cartera e inventario para eliminar fricciones y garantizar <strong>entregas en menos de 24 horas</strong>, optimizando cada proceso.</p>
+                    </div>
+                    <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-pink-400">Inteligencia de Negocio Avanzada</h3>
+                        <p class="text-gray-400 mt-2">Implementamos <strong>Inteligencia Artificial para predecir tendencias, sugerir decisiones estratégicas y automatizar procesos clave</strong>, transformando sus datos en oportunidades tangibles.</p>
+                    </div>
+                    <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-teal-400">Escalabilidad Global sin Límites</h3>
+                        <p class="text-gray-400 mt-2">Construimos una <strong>base tecnológica robusta y adaptable</strong>, diseñada para que cada operación internacional funcione como una sede digital independiente, impulsando su expansión.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Modules Section - Emphasized Integration and interactivity (title attribute) -->
+        <section role="region" aria-labelledby="modules-title" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-16">
+                    <h2 id="modules-title" class="section-title text-white">Nuestra Propuesta: Una Plataforma Modular, Inteligente e Integrada</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Diseñaremos y construiremos el ecosistema JAPANI DIGITAL a través de **módulos especializados de última generación**, diseñados para interactuar perfectamente y entregar valor continuo en cada etapa de su transformación.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Módulo Card - Added title attribute for interactivity -->
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-indigo-500 transition-colors duration-300 shadow-md"
+                         title="Centraliza la gestión de productos y facilita la venta B2B para sus clientes.">
+                        <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                        <div><h4 class="font-bold">Ventas y Catálogo</h4><p class="text-sm text-gray-400">Experiencia B2B Superior</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-indigo-500 transition-colors duration-300 shadow-md"
+                         title="Automatiza la gestión de créditos y el seguimiento de la cartera para una salud financiera óptima.">
+                        <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                        <div><h4 class="font-bold">Crédito y Cartera</h4><p class="text-sm text-gray-400">Flujo Financiero Inteligente</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-indigo-500 transition-colors duration-300 shadow-md"
+                         title="Sistema de gestión de almacenes (WMS) para una operatividad logística sin errores y optimizada.">
+                        <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></div>
+                        <div><h4 class="font-bold">Logística (WMS)</h4><p class="text-sm text-gray-400">Optimización de Bodega</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-indigo-500 transition-colors duration-300 shadow-md"
+                         title="Gestión de despachos eficiente e integración con transportadoras para la última milla.">
+                        <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M2 9.5c-1.28.2-2 1.48-2 2.5v4c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3v-4c0-1.02-.72-2.3-2-2.5"/><path d="M6 19V8c0-3.31 2.69-6 6-6s6 2.69 6 6v11"/><path d="M14 9h-4"/><path d="M12 19v-5"/></svg></div>
+                        <div><h4 class="font-bold">Despachos Inteligentes</h4><p class="text-sm text-gray-400">Gestión de Última Milla</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-pink-500 transition-colors duration-300 shadow-md"
+                         title="CRM impulsado por IA para un entendimiento 360 del cliente y gestión de interacciones.">
+                        <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M12 8V4H8"/><rect x="4" y="12" width="8" height="8" rx="2"/><path d="m9 13 2.5 2.5L14 13"/><path d="M20 4v4h-4"/><path d="m15 14 2.5 2.5L20 14"/></svg></div>
+                        <div><h4 class="font-bold">CRM + IA Avanzado</h4><p class="text-sm text-gray-400">Inteligencia de Cliente 360</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-pink-500 transition-colors duration-300 shadow-md"
+                         title="Herramientas de automatización para campañas de marketing personalizadas y efectivas.">
+                        <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M2 8c0-2.2.7-4.3 2-6"/><path d="M22 8a10 10 0 0 0-2-6"/></svg></div>
+                        <div><h4 class="font-bold">Marketing Automation</h4><p class="text-sm text-gray-400">Comunicación Personalizada</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-teal-500 transition-colors duration-300 shadow-md"
+                         title="Plataforma para gestionar y expandir su red de socios, impulsando ventas indirectas.">
+                        <div class="bg-teal-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                        <div><h4 class="font-bold">Portal de Socios Aliados</h4><p class="text-sm text-gray-400">Expansión Venta Indirecta</p></div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl flex items-center space-x-4 border border-transparent hover:border-teal-500 transition-colors duration-300 shadow-md"
+                         title="Implementación de programas de lealtad para recompensar y retener a sus clientes más valiosos.">
+                        <div class="bg-teal-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M12 21l-8-4.5v-9l8 4.5 8-4.5v9L12 21z"/><path d="M12 12l8-4.5"/><path d="M12 12v9"/><path d="M12 12L4 7.5"/><path d="M16 5.25l-8 4.5"/></svg></div>
+                        <div><h4 class="font-bold">Programas de Fidelización</h4><p class="text-sm text-gray-400">Retención y Recompensas</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section - Emphasized Agility and Value Delivery -->
+        <section id="roadmap" role="region" aria-labelledby="roadmap-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-16">
+                    <h2 id="roadmap-title" class="section-title text-white">Hoja de Ruta Ágil: 6 Meses para Transformar su Negocio</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Un **plan de desarrollo ágil y estratégico**, dividido en 12 sprints de 15 días, diseñado para entregar valor tangible y funcional de forma continua, acelerando su retorno de inversión.</p>
+                </div>
+                <div class="relative border-l-2 border-indigo-500 ml-6 md:ml-0 md:border-l-0 md:border-t-2 md:w-full md:flex">
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-indigo-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-indigo-400">Sprints 1-2</p>
+                            <h4 class="font-bold">Autenticación y Catálogo Central</h4>
+                            <p class="text-sm text-gray-400">Construcción de las bases del sistema y la plataforma de productos inteligente.</p>
+                        </div>
+                    </div>
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-indigo-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-indigo-400">Sprints 3-4</p>
+                            <h4 class="font-bold">Experiencia de Carrito y Pagos Seguros</h4>
+                            <p class="text-sm text-gray-400">Implementación de un flujo de compra intuitivo y pasarelas de pago eficientes.</p>
+                        </div>
+                    </div>
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-indigo-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-indigo-400">Sprints 5-6</p>
+                            <h4 class="font-bold">Gestión de Cartera y Paneles de Control</h4>
+                            <p class="text-sm text-gray-400">Desarrollo de control de crédito avanzado y seguimiento de pedidos en tiempo real.</p>
+                        </div>
+                    </div>
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-pink-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-pink-400">Sprints 7-8</p>
+                            <h4 class="font-bold">Logística (WMS) y Flujo de Despachos</h4>
+                            <p class="text-sm text-gray-400">Optimización integral de bodega e integración de guías de envío.</p>
+                        </div>
+                    </div>
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-pink-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-pink-400">Sprints 9-10</p>
+                            <h4 class="font-bold">Control de Inventario y Postventa Automatizada</h4>
+                            <p class="text-sm text-gray-400">Gestión precisa de stock, reabastecimiento y sistema de garantías.</p>
+                        </div>
+                    </div>
+                    <!-- Sprint Item -->
+                    <div class="mb-8 md:mb-0 md:flex-1 relative">
+                        <div class="absolute -left-2 top-0 md:top-auto md:-top-2 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-2 border-gray-800"></div>
+                        <div class="ml-8 md:ml-0 md:mt-8 text-center">
+                            <p class="font-bold text-teal-400">Sprints 11-12</p>
+                            <h4 class="font-bold">IA, Marketing Estratégico y Fidelización</h4>
+                            <p class="text-sm text-gray-400">Lanzamiento de módulos inteligentes que impulsan el crecimiento y la lealtad del cliente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Section - Adjusted Module Costs and Maintained Chart Proportions -->
+        <section id="inversion" role="region" aria-labelledby="investment-title" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-16">
+                    <h2 id="investment-title" class="section-title text-white">Inversión Estratégica para un Futuro Digital Garantizado</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Una propuesta transparente, **orientada a resultados y con un enfoque claro en maximizar el retorno de cada dólar invertido**, asegurando un crecimiento sostenible.</p>
+                </div>
+                <div class="grid lg:grid-cols-5 gap-8 items-stretch">
+                    <div class="lg:col-span-3 bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Detalle de la Inversión por Módulo</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="grid grid-cols-3 gap-4 pb-2 border-b border-gray-700">
+                                <span class="font-semibold text-gray-400 col-span-2">Módulo</span>
+                                <span class="font-semibold text-gray-400 text-right">Inversión</span>
+                            </div>
+                            <!-- Items - Adjusted costs -->
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Autenticación y Onboarding</span><span class="font-bold text-right">$4,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Catálogo de Productos</span><span class="font-bold text-right">$8,000.00</span> <!-- Reduced -->
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Carrito de Compras y Pagos</span><span class="font-bold text-right">$8,000.00</span> <!-- Reduced -->
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Crédito y Cartera</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Paneles de Cliente y Asesor</span><span class="font-bold text-right">$5,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo Logístico (WMS)</span><span class="font-bold text-right">$8,500.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Paneles Logísticos por Rol</span><span class="font-bold text-right">$4,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Despachos y Transportadoras</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Inventario y Reabastecimiento</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Postventa y Garantías</span><span class="font-bold text-right">$4,307.50</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">CRM Inteligente + IA</span><span class="font-bold text-right">$9,500.00</span> <!-- Increased -->
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Marketing, Socios y Fidelización</span><span class="font-bold text-right">$9,661.50</span> <!-- Increased -->
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-600 mt-6 pt-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl text-gray-300">Inversión Total del Proyecto</span>
+                                <span class="text-3xl font-black gradient-text">$84,969.00 USD</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 text-right">Incluye equipo de expertos, herramientas de vanguardia, infraestructura robusta en la nube, gestión integral y soporte durante 6 meses.</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 h-full flex flex-col shadow-lg">
+                            <h3 class="text-2xl font-bold mb-4 text-center">Distribución Estratégica de la Inversión</h3>
+                            <div class="relative flex-grow min-h-[300px]">
+                                <!-- Added ARIA attributes to canvas -->
+                                <canvas id="investmentChart" role="img" aria-label="Gráfico de distribución de inversión por área."></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why OrquestIA Section - Stronger Value Proposition -->
+        <section role="region" aria-labelledby="why-orquestia-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-12">
+                    <h2 id="why-orquestia-title" class="section-title text-white">¿Por qué <span class="text-indigo-400">Orquest</span><span class="text-pink-400">IA</span> es su Socio Ideal?</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Más que desarrolladores, somos **sus arquitectos de futuro digital**. Nuestro enfoque estratégico optimiza cada inversión, acelera los resultados y le posiciona a la vanguardia de la innovación.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Cost Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-center">Costo Total: Optimización de Presupuesto</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="costChart" role="img" aria-label="Gráfico comparativo de costo total entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Inversión inteligente para máximo impacto.</p>
+                    </div>
+                    <!-- Time Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-center">Tiempo de Entrega: Acelerando su Lanzamiento</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="timeChart" role="img" aria-label="Gráfico comparativo de tiempo de entrega entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Resultados rápidos y medibles.</p>
+                    </div>
+                    <!-- Innovation Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-center">Innovación Tecnológica: Liderazgo Competitivo</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="innovationChart" role="img" aria-label="Gráfico comparativo de innovación tecnológica entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Tecnología de punta a su servicio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW Security, Infrastructure, and Support Section - Enhanced Descriptions -->
+        <section role="region" aria-labelledby="infra-security-title" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 fade-in">
+                <div class="text-center mb-12">
+                    <h2 id="infra-security-title" class="section-title text-white">Seguridad de Vanguardia, Infraestructura Robusta y Soporte Proactivo</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Construimos sobre **cimientos inquebrantables** para garantizar la continuidad, el rendimiento óptimo y la protección absoluta de su valioso negocio digital.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-indigo-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 12v-2"/><path d="M12 12l-2-1.5"/><path d="M12 12l2-1.5"/><path d="M12 12v2"/><path d="M12 12l-2 1.5"/><path d="M12 12l2 1.5"/><path d="M2.09 11.64c.25-.26.54-.48.85-.66l7.53-4.35a2 2 0 0 1 2.06 0l7.53 4.35c.31.18.6.4.85.66A2 2 0 0 1 22 13.1v3.81a2 2 0 0 1-1.03 1.73l-7.53 4.35a2 2 0 0 1-2.06 0l-7.53-4.35A2 2 0 0 1 2 16.9V13.1a2 2 0 0 1 .09-1.46Z"/></div>
+                        <h4 class="font-bold text-lg mb-2">Infraestructura de Nube de Alto Rendimiento</h4>
+                        <p class="text-gray-400 text-sm">Desplegamos su solución en los **proveedores líderes del mundo (AWS, GCP)**, garantizando un **99.9% de uptime**, escalabilidad automática para picos de demanda y rendimiento óptimo en cualquier ubicación geográfica.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-pink-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                        <h4 class="font-bold text-lg mb-2">Ciberseguridad Integrada (DevSecOps)</h4>
+                        <p class="text-gray-400 text-sm">La seguridad es el corazón de nuestro desarrollo. Implementamos el enfoque **DevSecOps**, con cifrado de datos en reposo y en tránsito, protección avanzada contra las **amenazas OWASP Top 10** y auditorías de seguridad constantes para blindar su plataforma.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-teal-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M12.22 2h-4.44a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.38"/><path d="M17 2l5 5h-5V2z"/><path d="M12 18h.01"/><path d="M7 18h.01"/><path d="M17 18h.01"/></svg></div>
+                        <h4 class="font-bold text-lg mb-2">Soporte y Mantenimiento Proactivo 24/7</h4>
+                        <p class="text-gray-400 text-sm">Nuestro compromiso se extiende más allá del lanzamiento. La propuesta incluye un **plan de soporte integral** para la resolución rápida de incidencias, actualizaciones periódicas y monitoreo constante del sistema, asegurando su estabilidad y evolución.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section with Contact Form -->
+        <section id="contact-form" role="region" aria-labelledby="cta-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl">
+            <div class="container mx-auto px-6 text-center fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <h2 id="cta-title" class="text-4xl font-black text-white mb-4">¡Construyamos Juntos el Futuro de JAPANI DIGITAL!</h2>
+                    <p class="text-gray-300 mt-4 text-lg mb-8">Esta propuesta no es solo un documento, es el primer paso hacia una **transformación digital sin precedentes**. En OrquestIA, estamos listos para ser su socio tecnológico estratégico y asegurar el éxito rotundo de JAPANI DIGITAL.</p>
+                
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-700 rounded-t-lg">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-400">
+            <p>&copy; 2024 OrquestIA. Propuesta preparada exclusivamente para JAPANI.</p>
+            <p class="text-sm mt-2">Medellín, Colombia</p>
+        </div>
+    </footer>
+
+    <!-- Modal Message Structure -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="close-button">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-white">¡Mensaje Enviado con Éxito!</h3>
+            <p class="text-gray-300">Gracias por tu interés. Nos pondremos en contacto contigo a la brevedad.</p>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js script for Investment Chart
+        // Adjusted data for investment distribution: Finanzas y Operaciones (30%), rest distributed to others
+        const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Comercio y Cliente', 'Finanzas y Operaciones', 'Inteligencia y Crecimiento'],
+                datasets: [{
+                    // Data values to maintain the strategic distribution, with Finanzas y Operaciones at ~30%
+                    data: [33411.7, 25490.7, 26066.6], 
+                    backgroundColor: [
+                        '#4338CA', // Indigo
+                        '#DB2777', // Pink
+                        '#14B8A6'  // Teal
+                    ],
+                    borderColor: '#1F2937',
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#D1D5DB',
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    let total = context.chart.getDatasetMeta(0).total;
+                                    let percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    label += new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(context.parsed) + ` (${percentage}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const defaultBarOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // Horizontal bars
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: '#9CA3AF', font: {size: 10} },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                y: {
+                    ticks: { color: '#D1D5DB', font: { weight: 'bold' } },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        };
+
+        // Cost Chart - No changes needed to data as per request, just re-rendered
+        new Chart(document.getElementById('costChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Costo',
+                    data: [95000, 84969],
+                    backgroundColor: ['#4B5563', 'rgba(99, 102, 241, 0.8)'],
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(c.raw) 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Time Chart - No changes needed to data as per request, just re-rendered
+        new Chart(document.getElementById('timeChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Meses',
+                    data: [9, 6],
+                    backgroundColor: ['#4B5563', 'rgba(219, 39, 119, 0.8)'],
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => `${c.raw} meses` 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Innovation Chart - Added for completeness
+        new Chart(document.getElementById('innovationChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Nivel',
+                    data: [6, 9], // Example data for innovation level
+                    backgroundColor: ['#4B5563', 'rgba(20, 184, 166, 0.8)'], // Teal color
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                scales: {
+                    x: {
+                        ...defaultBarOptions.scales.x,
+                        max: 10 // Assuming a scale of 1-10 for innovation
+                    }
+                },
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => `Nivel ${c.raw}` 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Fade-in animation for sections on scroll
+        const faders = document.querySelectorAll(".fade-in");
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px" // Start animation 50px before entering viewport
+        };
+        const appearOnScroll = new IntersectionObserver(function(
+            entries,
+            appearOnScroll
+        ) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add("fade-in-active"); // Use a class that triggers animation
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            fader.classList.remove("fade-in"); // Remove initial fade-in from HTML
+            appearOnScroll.observe(fader);
+        });
+
+        // Add a class for active fade-in animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .fade-in-active {
+                animation: fadeIn 0.8s ease-out forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Form submission and Modal handling
+        const contactForm = document.querySelector('form');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModalButton = document.getElementById('closeModal');
+
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            // In a real application, you would send this data to a server
+            console.log('Formulario enviado:', {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                message: document.getElementById('message').value
+            });
+
+            // Show the modal message
+            modalOverlay.classList.add('open');
+            contactForm.reset(); // Clear the form
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            modalOverlay.classList.remove('open');
+        });
+
+        // Close modal if clicking outside the content
+        modalOverlay.addEventListener('click', function(event) {
+            if (event.target === modalOverlay) {
+                modalOverlay.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

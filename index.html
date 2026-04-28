@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica y Contrato: JAPANI DIGITAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1F2937; /* Darker background for proposal style */
+            color: #E5E7EB; /* Light grey text */
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #4F46E5, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title {
+            font-size: 2.5rem; /* Equivalent to text-4xl */
+            font-weight: 900; /* Equivalent to font-black */
+            line-height: 1.2;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Styles for the modal messages (from propuesta.html) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1F2937; /* gray-800 */
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            color: #E5E7EB;
+        }
+        .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            color: #D1D5DB; /* gray-400 */
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Styles for flowchart steps (from infografia.html) - adapted for proposal style */
+        .flowchart-step {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #1F2937; /* Maintain proposal background */
+            border-left: 4px solid #4F46E5; /* Indigo accent from proposal */
+            color: #E5E7EB;
+        }
+        .flowchart-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Darker shadow */
+            border-left-color: #EC4899; /* Pink accent on hover */
+        }
+
+        /* Timeline styles (from infografia.html) - adapted for proposal style */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: -0.6rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: #4F46E5; /* Indigo accent */
+            border-radius: 50%;
+            border: 3px solid #1F2937; /* Body background color */
+            z-index: 10;
+        }
+        .relative.wrap.overflow-hidden .border-2-2 { /* Adjust timeline line color */
+            border-color: rgba(79, 70, 229, 0.4); /* Indigo transparent */
+        }
+        .relative.wrap .z-20 h1 { /* Timeline circle numbers */
+            color: white;
+        }
+        .relative.wrap .z-20.bg-indigo-500 { /* Specific indigo for some timeline circles */
+            background-color: #4F46E5;
+        }
+        .relative.wrap .z-20.bg-pink-500 { /* Specific pink for some timeline circles */
+            background-color: #EC4899;
+        }
+        .relative.wrap .z-20.bg-teal-500 { /* Specific teal for some timeline circles */
+            background-color: #14B8A6;
+        }
+
+        /* Chart container adjustment for dark theme */
+        .chart-container canvas {
+            background-color: #374151; /* gray-700 for charts */
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        /* Contract PDF section */
+        #contract-document {
+            background-color: #1F2937; /* gray-800 */
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151; /* gray-700 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        #contract-document iframe {
+            border-radius: 0.5rem;
+        }
+
+        /* Signature Modal styles (from infografia.html) - adapted for proposal style */
+        #modalFirma .bg-white {
+            background-color: #1F2937; /* gray-800 for modal content */
+            color: #E5E7EB;
+        }
+        #modalFirma canvas {
+            background-color: #374155; /* Slightly lighter gray for canvas */
+            border: 1px solid #4B5563; /* gray-600 border */
+        }
+        #modalFirma button.bg-gray-500 {
+            background-color: #4B5563; /* gray-600 */
+            color: white;
+        }
+        #modalFirma button.bg-[#00A1E4] { /* Specific blue from infografia */
+            background-color: #4F46E5; /* Indigo from proposal */
+        }
+        #modalFirma button.hover\:bg-[#0072BB]:hover { /* Specific blue from infografia */
+            background-color: #EC4899; /* Pink from proposal */
+        }
+
+        /* Styles for expandable sections */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding-top: 0;
+        }
+        .expandable-content.open {
+            max-height: 1000px; /* Large enough to accommodate content */
+            padding-top: 1rem;
+        }
+        .module-card-button {
+            background: none;
+            border: none;
+            padding: 0;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .module-card-button div:first-child {
+            display: flex;
+            align-items: center;
+            space-x: 4;
+        }
+        .module-card-button h4 {
+            font-bold;
+            text-white;
+        }
+        .module-card-button p {
+            font-size: 0.875rem; /* text-sm */
+            color: #9CA3AF; /* gray-400 */
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header - Improved with ARIA role -->
+    <header role="banner" class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-700 rounded-b-lg shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">
+                <span class="text-indigo-400">Orquest</span><span class="text-pink-400">IA</span>
+            </h1>
+            <!-- Added aria-label for better accessibility -->
+            <a href="#inversion" aria-label="Ver Propuesta Económica Detallada" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 transform hover:scale-105 shadow-md">Ver Propuesta Económica</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section - Enhanced Title and Call to Action -->
+        <section role="region" aria-labelledby="hero-title" class="py-20 md:py-32 bg-gray-900">
+            <div class="container mx-auto px-6 text-center fade-in">
+                <h2 id="hero-title" class="text-4xl md:text-6xl font-black uppercase tracking-wider">
+                    <span class="gradient-text">Propuesta Estratégica y Contrato:</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-400 mt-4">Para la construcción del Ecosistema del Futuro:</p>
+                <h1 class="text-6xl md:text-8xl font-black text-white mt-2">JAPANI DIGITAL</h1>
+                <p class="mt-8 max-w-3xl mx-auto text-gray-300 text-lg">
+                    Una alianza estratégica para revolucionar la industria de repuestos en LATAM, uniendo su visión de liderazgo con nuestra experticia en Inteligencia Artificial, automatización y desarrollo tecnológico de vanguardia. Este documento no es solo una propuesta, sino también una infografía detallada de los términos clave de nuestro contrato.
+                </p>
+                <div class="mt-10">
+                    <!-- Stronger Call to Action -->
+                    <a href="#roadmap" aria-label="Explorar el Plan de Acción Detallado" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 inline-block transform hover:scale-105 shadow-lg">Descubra Nuestro Plan de Acción</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section - Clearer Value Proposition (from propuesta.html) -->
+        <section role="region" aria-labelledby="vision-title" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 id="vision-title" class="section-title text-white">Comprendemos y Potenciamos su Visión Estratégica</h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Hemos realizado un análisis profundo de su plan 4.0. Nuestro objetivo es crear una arquitectura digital centralizada y optimizada que impulse el crecimiento y la eficiencia de JAPANI a escala global.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-400">Eficiencia Operativa Redefinida</h3>
+                        <p class="text-gray-400 mt-2">Conectamos logística, ventas, gestión de cartera e inventario para eliminar fricciones y garantizar entregas en menos de 24 horas, optimizando cada proceso.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-pink-400">Inteligencia de Negocio Avanzada</h3>
+                        <p class="text-gray-400 mt-2">Implementamos <strong>Inteligencia Artificial para predecir tendencias, sugerir decisiones estratégicas y automatizar procesos clave</strong>, transformando sus datos en oportunidades tangibles.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 transform hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                        <h3 class="text-xl font-bold text-teal-400">Escalabilidad Global sin Límites</h3>
+                        <p class="text-gray-400 mt-2">Construimos una <strong>base tecnológica robusta y adaptable</strong>, diseñada para que cada operación internacional funcione como una sede digital independiente, impulsando su expansión.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modules Section - Emphasized Integration and interactivity (title attribute) (from propuesta.html and infografia.html) -->
+        <section id="objeto" role="region" aria-labelledby="modules-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 id="modules-title" class="section-title text-white">Objeto del Contrato: Módulos a Desarrollar</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">El corazón del proyecto es la construcción de 12 módulos funcionales interconectados. Cada uno está diseñado para optimizar un área crítica del negocio, desde la autenticación de usuarios hasta el marketing estratégico y la fidelización.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Module 1 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-indigo-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module1Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/><path d="M12 13c-2.66 0-8 1.34-8 4v2h16v-2c0-2.66-5.34-4-8-4z"/></svg></div>
+                                <div><h4 class="font-bold text-white">1. Autenticación y Onboarding</h4><p class="text-sm text-gray-400">Acceso Seguro y Fácil</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module1Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module1Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El cliente accede por App, Web, asesor o socio aliado.</li>
+                                <li>El sistema lo reconoce y clasifica como distribuidor, almacén, taller, revendedor, cliente final o socio aliado.</li>
+                                <li>Se activa un onboarding automático según el perfil del usuario.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-indigo-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module2Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                                <div><h4 class="font-bold text-white">2. Ventas y Catálogo</h4><p class="text-sm text-gray-400">Experiencia B2B Superior</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module2Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module2Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Visual personalizada del catálogo según el tipo de usuario.</li>
+                                <li>Acceso a precios asignados y disponibilidad de stock en tiempo real.</li>
+                                <li>Permite pedidos rápidos desde la Web App o con apoyo del asesor.</li>
+                                <li>Integración de promociones  y seguimiento de ventas.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 3 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-indigo-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module3Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L9.44 10.94c-1.48 1.48-4.13 1.48-5.6 0a5 5 0 0 1 0-7.07l.7-.7A5 5 0 0 1 12 5"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.77-1.77c1.48-1.48 4.13-1.48 5.6 0a5 5 0 0 1 0 7.07l-.7.7A5 5 0 0 1 12 19"/></svg></div>
+                                <div><h4 class="font-bold text-white">3. Carrito de Compras y Pagos</h4><p class="text-sm text-gray-400">Flujo de Compra Inteligente</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module3Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module3Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El cliente arma su carrito con productos y cantidades.</li>
+                                <li>El sistema calcula automáticamente descuentos, promociones y sugiere productos relacionados.</li>
+                                <li>Selección flexible del medio de pago: crédito JAPANI, PSE, transferencia bancaria o cupo externo.</li>
+                                <li>El pedido se genera con estado "pendiente de validación" hasta la confirmación del pago.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 4 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-indigo-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module4Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                                <div><h4 class="font-bold text-white">4. Crédito y Cartera</h4><p class="text-sm text-gray-400">Gestión Financiera Optimizada</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module4Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module4Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Integración con la plataforma Odoo mediante APIs y su modulo de cartera.</li>
+                                <li>Integración con el modulo de tesoreria interno de JAPANI.</li>
+                                <li>Integración con plataformas como ADIS o sistecredito, para validaciones.</li>
+                                <li>Comprobantes de transferencia aprobados vía IA OCR o manualmente por el área de cartera.</li>
+                                <li>Panel visual para el cliente con información de cupos usados, vencimientos, pagos en mora y riesgo.</li>
+                                <li>La IA proporciona scoring de riesgo y sugiere acciones de crédito.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 5 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-pink-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module5Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M3 3v18h18"/><path d="M18 10h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z"/><path d="M7 17V7a2 2 0 0 1 2-2h10"/></svg></div>
+                                <div><h4 class="font-bold text-white">5. Paneles de Cliente y Asesor</h4><p class="text-sm text-gray-400">Información en Tiempo Real</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module5Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module5Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El cliente tiene una visual del estado de su pedido por etapas, desde la confirmación hasta la entrega.</li>
+                                <li>El asesor recibe notificaciones automáticas para seguimiento, reconexión o ejecución de sugerencias de la IA (CRM).</li>
+                                <li>Todas las interacciones quedan registradas y centralizadas en el CRM para un historial completo del cliente.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 6 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-pink-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module6Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></div>
+                                <div><h4 class="font-bold text-white">6. Logística (WMS)</h4><p class="text-sm text-gray-400">Optimización de Bodega</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module6Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module6Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El coordinador logístico visualiza todos los pedidos activos.</li>
+                                <li>Asignación automática de picking según SKU, zona y bodega.</li>
+                                <li>Procesos de verificación y packing con checklist digital para cero errores.</li>
+                                <li>Cálculo automático y generación de guías.</li>
+                                <li>Trazabilidad completa de cada etapa: picking, packing y despacho.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 7 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-pink-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module7Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                                <div><h4 class="font-bold text-white">7. Paneles Logísticos por Rol</h4><p class="text-sm text-gray-400">Control Operativo Detallado</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module7Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module7Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Director Logístico: Métricas por zona, eficiencia, SLA (Acuerdo de Nivel de Servicio) y detección de cuellos de botella para toma de decisiones.</li>
+                                <li>Coordinador Logístico: Asignación de tareas y control del cumplimiento del equipo de almacén.</li>
+                                <li>Alistadores, Verificadores y Empacadores: Reciben tareas directamente desde el sistema, optimizando el flujo de trabajo.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 8 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-teal-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module8Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-teal-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M2 9.5c-1.28.2-2 1.48-2 2.5v4c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3v-4c0-1.02-.72-2.3-2-2.5"/><path d="M6 19V8c0-3.31 2.69-6 6-6s6 2.69 6 6v11"/><path d="M14 9h-4"/><path d="M12 19v-5"/></svg></div>
+                                <div><h4 class="font-bold text-white">8. Despachos Inteligentes</h4><p class="text-sm text-gray-400">Gestión de Última Milla</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module8Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module8Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Agrupación automática de pedidos por zona y tipo de envío para optimización de rutas.</li>
+                                <li>Generación de guías automáticas vía API con transportadoras integradas.</li>
+                                <li>Asignación automática de transportadora según peso, zona y urgencia del pedido.</li>
+                                <li>Confirmación automática de entrega por parte del cliente con trazabilidad completa.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 9 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-teal-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module9Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-teal-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 10l-4 4 4 4 4-4-4-4z"/></svg></div>
+                                <div><h4 class="font-bold text-white">9. Inventario y Reabastecimiento</h4><p class="text-sm text-gray-400">Stock Optimizado y Gestión Proactiva</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module9Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module9Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El analista de inventario visualiza rotación, SKUs críticos y sobrestock.</li>
+                                <li>El sistema genera alertas automáticas por sobreinventario, rupturas de stock y lentitud de rotación.</li>
+                                <li>Propuestas inteligentes de órdenes de reabastecimiento internas y sugerencias de compra internacional desde China.</li>
+                                <li>IA para predicción de rotación por SKU y alerta por sobrestock, optimizando el capital de trabajo.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 10 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-indigo-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module10Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-indigo-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></div>
+                                <div><h4 class="font-bold text-white">10. Postventa y Garantías</h4><p class="text-sm text-gray-400">Soporte al Cliente y Resolución Eficiente</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module10Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module10Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>El cliente puede abrir casos de postventa o garantía desde la App o Web.</li>
+                                <li>Carga de evidencia y clasificación automática del caso.</li>
+                                <li>Seguimiento por etapas: recibido, en validación, resuelto.</li>
+                                <li>Respuestas automatizadas o gestionadas por un asesor especializado en postventa.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 11 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-pink-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module11Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-pink-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M12 8V4H8"/><rect x="4" y="12" width="8" height="8" rx="2"/><path d="m9 13 2.5 2.5L14 13"/><path d="M20 4v4h-4"/><path d="m15 14 2.5 2.5L20 14"/></svg></div>
+                                <div><h4 class="font-bold text-white">11. Dashboard Inteligente + IA</h4><p class="text-sm text-gray-400">Inteligencia de Cliente 360</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module11Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module11Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Dashboard personalizado para el administrador que contiene métricas clave de rendimiento.</li>
+                                <li>Registro total de cada actividad e interacción del cliente en su ficha.</li>
+                                <li>La IA analiza patrones de abandono, frecuencia de compra e intención de recompra/fuga.</li>
+                                <li>El sistema sugiere al asesor acciones específicas para contactar, ofrecer promociones o fidelizar al cliente.</li>
+                                <li>IA para análisis de intención de recompra o fuga, y para segmentación automática por historial, hábitos y geolocalización.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Module 12 -->
+                    <div class="flowchart-step bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-teal-500 transition-colors duration-300 shadow-md">
+                        <button class="module-card-button" onclick="toggleModuleDetails(this, 'module12Details')">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-teal-900 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M2 8c0-2.2.7-4.3 2-6"/><path d="M22 8a10 10 0 0 0-2-6"/></svg></div>
+                                <div><h4 class="font-bold text-white">12. Marketing, Socios y Fidelización</h4><p class="text-sm text-gray-400">Crecimiento y Retención Automatizada</p></div>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" data-arrow="module12Details" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="module12Details" class="expandable-content text-gray-400 text-sm">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Marketing Automation: Campañas automatizadas por perfil y comportamiento, distribuidas vía WhatsApp, App y Email. Reportes detallados de apertura, clic, conversión y recompra.</li>
+                                <li>Portal de Socios Aliados: Cada socio tiene acceso a su cartera de clientes, métricas y desempeño. Permite invitar y codificar nuevos talleres o almacenes, y gestionar comisiones por venta.</li>
+                                <li>Programas de Fidelización: Los clientes acumulan puntos por compra, referencias y formación. Acceden a niveles superiores con beneficios exclusivos y canjean puntos por descuentos o cursos. Todo conectado con el CRM para mejorar el engagement.</li>
+                                <li>IA para segmentación automática de marketing por historial, hábitos y geolocalización.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section - Emphasized Agility and Value Delivery (from propuesta.html and infografia.html) -->
+        <section id="roadmap" role="region" aria-labelledby="roadmap-title" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 id="roadmap-title" class="section-title text-white">Hoja de Ruta Ágil: 6 Meses para Transformar su Negocio</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Un <strong>plan de desarrollo ágil y estratégico</strong>, dividido en 12 sprints de 15 días, diseñado para entregar valor tangible y funcional de forma continua, acelerando su retorno de inversión.</p>
+                </div>
+                <div class="relative wrap overflow-hidden p-10 h-full">
+                    <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-indigo-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-indigo-400 text-xl">Sprints 1-2</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 1: Cimientos del proyecto. Autenticación y Catálogo Central.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                         <div class="z-20 flex items-center order-1 bg-indigo-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">2</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-indigo-400 text-xl">Sprints 3-4</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 2: Experiencia del usuario. Carrito de Compras y Pagos Seguros.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                         <div class="z-20 flex items-center order-1 bg-pink-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-pink-400 text-xl">Sprints 5-6</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 3: Control y gestión. Cartera y Paneles de Control.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-pink-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">4</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-pink-400 text-xl">Sprints 7-8</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 4: Optimización operativa. Logística (WMS) y Despachos.</p>
+                        </div>
+                    </div>
+                     <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                         <div class="z-20 flex items-center order-1 bg-teal-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">5</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-teal-400 text-xl">Sprints 9-10</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 5: Automatización y servicio. Inventario y Postventa.</p>
+                        </div>
+                    </div>
+                     <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-500 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">6</h1>
+                        </div>
+                        <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4 border border-gray-700">
+                            <h3 class="font-bold text-teal-400 text-xl">Sprints 11-12</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-400">Mes 6: Inteligencia de negocio. IA, Marketing y Fidelización.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Section - Adjusted Module Costs and Maintained Chart Proportions (from propuesta.html and infografia.html) -->
+        <section id="inversion" role="region" aria-labelledby="investment-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 id="investment-title" class="section-title text-white">Inversión Estratégica para un Futuro Digital Garantizado</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Una propuesta transparente, <strong>orientada a resultados y con un enfoque claro en maximizar el retorno de cada dólar invertido</strong>, asegurando un crecimiento sostenible.</p>
+                </div>
+                <div class="grid lg:grid-cols-5 gap-8 items-stretch">
+                    <div class="lg:col-span-3 bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Detalle de la Inversión por Módulo</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="grid grid-cols-3 gap-4 pb-2 border-b border-gray-700">
+                                <span class="font-semibold text-gray-400 col-span-2">Módulo</span>
+                                <span class="font-semibold text-gray-400 text-right">Inversión</span>
+                            </div>
+                            <!-- Items - Adjusted costs based on infografia.html breakdown which matches total -->
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Autenticación y Onboarding</span><span class="font-bold text-right">$4,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Catálogo de Productos</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Carrito de Compras y Pagos</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Crédito y Cartera</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Paneles de Cliente y Asesor</span><span class="font-bold text-right">$5,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo Logístico (WMS)</span><span class="font-bold text-right">$8,500.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Paneles Logísticos por Rol</span><span class="font-bold text-right">$4,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Despachos y Transportadoras</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Módulo de Inventario y Reabastecimiento</span><span class="font-bold text-right">$8,000.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Postventa y Garantías</span><span class="font-bold text-right">$4,307.50</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">CRM Inteligente + IA</span><span class="font-bold text-right">$9,500.00</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <span class="col-span-2">Marketing, Socios y Fidelización</span><span class="font-bold text-right">$9,661.50</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-600 mt-6 pt-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl text-gray-300">Inversión Total del Proyecto</span>
+                                <span class="text-3xl font-black gradient-text">$84,969.00 USD</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 text-right">Incluye equipo de expertos, herramientas de vanguardia, infraestructura robusta en la nube, gestión integral y soporte durante 6 meses.</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 h-full flex flex-col shadow-lg">
+                            <h3 class="text-2xl font-bold mb-4 text-center">Distribución Estratégica de la Inversión</h3>
+                            <div class="relative flex-grow min-h-[300px]">
+                                <!-- Added ARIA attributes to canvas -->
+                                <canvas id="investmentChart" role="img" aria-label="Gráfico de distribución de inversión por área."></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment and Payment Schedule (from infografia.html) -->
+        <section id="pagos" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">Inversión y Cronograma de Pagos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-400">Distribución de la Inversión</h3>
+                    <p class="text-gray-400 mb-6">
+                        El contrato establece un esquema de pagos claro, con un 50% de anticipo para iniciar el proyecto y el 50% restante distribuido en 6 pagos por hitos, condicionados a la entrega y validación de los sprints correspondientes. Esto asegura un flujo de caja alineado con el progreso del desarrollo.
+                    </p>
+                    <div class="chart-container h-80 md:h-96">
+                        <canvas id="paymentChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-400">Hitos de Entrega y Facturación</h3>
+                     <p class="text-gray-400 mb-6">
+                        El proyecto se divide en 6 hitos de pago clave. Cada uno agrupa dos sprints y se enfoca en entregar un conjunto de funcionalidades estratégicas, desde la autenticación inicial hasta la implementación de la IA y el marketing.
+                    </p>
+                    <div class="chart-container h-80 md:h-96">
+                        <canvas id="sprintDeliverablesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why OrquestIA Section - Stronger Value Proposition (from propuesta.html) -->
+        <section role="region" aria-labelledby="why-orquestia-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 id="why-orquestia-title" class="section-title text-white">¿Por qué <span class="text-indigo-400">Orquest</span><span class="text-pink-400">IA</span> es su Socio Ideal?</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Más que desarrolladores, somos <strong>sus arquitectos de futuro digital</strong>. Nuestro enfoque estratégico optimiza cada inversión, acelera los resultados y le posiciona a la vanguardia de la innovación.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Cost Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md border border-gray-700">
+                        <h3 class="text-xl font-bold mb-4 text-center">Costo Total: Optimización de Presupuesto</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="costChart" role="img" aria-label="Gráfico comparativo de costo total entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Inversión inteligente para máximo impacto.</p>
+                    </div>
+                    <!-- Time Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md border border-gray-700">
+                        <h3 class="text-xl font-bold mb-4 text-center">Tiempo de Entrega: Acelerando su Lanzamiento</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="timeChart" role="img" aria-label="Gráfico comparativo de tiempo de entrega entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Resultados rápidos y medibles.</p>
+                    </div>
+                    <!-- Innovation Chart -->
+                    <div class="bg-gray-900 p-6 rounded-2xl shadow-md border border-gray-700">
+                        <h3 class="text-xl font-bold mb-4 text-center">Innovación Tecnológica: Liderazgo Competitivo</h3>
+                        <div class="relative h-60">
+                            <!-- Added ARIA attributes to canvas -->
+                            <canvas id="innovationChart" role="img" aria-label="Gráfico comparativo de innovación tecnológica entre agencia tradicional y OrquestIA."></canvas>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center">Tecnología de punta a su servicio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW Security, Infrastructure, and Support Section - Enhanced Descriptions (from propuesta.html) -->
+        <section role="region" aria-labelledby="infra-security-title" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 id="infra-security-title" class="section-title text-white">Seguridad de Vanguardia, Infraestructura Robusta y Soporte Proactivo</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Construimos sobre <strong>cimientos inquebrantables</strong> para garantizar la continuidad, el rendimiento óptimo y la protección absoluta de su valioso negocio digital.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-indigo-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 12v-2"/><path d="M12 12l-2-1.5"/><path d="M12 12l2-1.5"/><path d="M12 12v2"/><path d="M12 12l-2 1.5"/><path d="M12 12l2 1.5"/><path d="M2.09 11.64c.25-.26.54-.48.85-.66l7.53-4.35a2 2 0 0 1 2.06 0l7.53 4.35c.31.18.6.4.85.66A2 2 0 0 1 22 13.1v3.81a2 2 0 0 1-1.03 1.73l-7.53 4.35a2 2 0 0 1-2.06 0l-7.53-4.35A2 2 0 0 1 2 16.9V13.1a2 2 0 0 1 .09-1.46Z"/></svg></div>
+                        <h4 class="font-bold text-lg mb-2">Infraestructura de Nube de Alto Rendimiento</h4>
+                        <p class="text-gray-400 text-sm">Desplegamos su solución en los <strong>proveedores líderes del mundo (AWS, GCP)</strong>, garantizando un <strong>99.9% de uptime</strong>, escalabilidad automática para picos de demanda y rendimiento óptimo en cualquier ubicación geográfica.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-pink-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                        <h4 class="font-bold text-lg mb-2">Ciberseguridad Integrada (DevSecOps)</h4>
+                        <p class="text-gray-400 text-sm">La seguridad es el corazón de nuestro desarrollo. Implementamos el enfoque <strong>DevSecOps</strong>, con cifrado de datos en reposo y en tránsito, protección avanzada contra las <strong>amenazas OWASP Top 10</strong> y auditorías de seguridad constantes para blindar su plataforma.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center shadow-md">
+                        <div class="bg-teal-900 p-4 rounded-full mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="M12.22 2h-4.44a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.38"/><path d="M17 2l5 5h-5V2z"/><path d="M12 18h.01"/><path d="M7 18h.01"/><path d="M17 18h.01"/></svg></div>
+                        <h4 class="font-bold text-lg mb-2">Soporte y Mantenimiento Proactivo 24/7</h4>
+                        <p class="text-gray-400 text-sm">Nuestro compromiso se extiende más allá del lanzamiento. La propuesta incluye un <strong>plan de soporte integral</strong> para la resolución rápida de incidencias, actualizaciones periódicas y monitoreo constante del sistema, asegurando su estabilidad y evolución.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cláusulas Contractuales Clave (from infografia.html) -->
+        <section id="clausulas" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">Cláusulas Contractuales Clave</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-indigo-400">🔑</div>
+                    <h3 class="text-xl font-bold text-indigo-400 mb-2">Propiedad Intelectual</h3>
+                    <p class="text-gray-400">
+                        Una vez completado el pago total, el Cliente será el titular único y exclusivo de todos los derechos de propiedad intelectual sobre el código fuente, APIs, bases de datos y documentación desarrollados.
+                    </p>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-pink-400">🛡️</div>
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Garantía y Soporte (SLA)</h3>
+                    <p class="text-gray-400">
+                        El Desarrollador ofrece una garantía de 90 días para corregir errores sin costo. Se establecen tiempos de respuesta claros (SLA) para errores críticos (4h), mayores (8h) y menores.
+                    </p>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-teal-400">🤫</div>
+                    <h3 class="text-xl font-bold text-teal-400 mb-2">Confidencialidad</h3>
+                    <p class="text-gray-400">
+                        Ambas partes se comprometen a mantener estricta confidencialidad sobre la información técnica y comercial. Esta obligación se extiende por 5 años tras la finalización del contrato.
+                    </p>
+                </div>
+                 <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-indigo-400">⚖️</div>
+                    <h3 class="text-xl font-bold text-indigo-400 mb-2">Cláusula Penal Pecuniaria</h3>
+                    <p class="text-gray-400">
+                        En caso de incumplimiento grave de las obligaciones principales por cualquiera de las partes, se establece una multa del 20% del valor total del contrato, sin perjuicio de otras indemnizaciones.
+                    </p>
+                </div>
+                 <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-pink-400">🔄</div>
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Gestión de Cambios</h3>
+                    <p class="text-gray-400">
+                        Cualquier cambio al alcance original debe seguir un proceso formal: solicitud, análisis de impacto por parte del desarrollador, cotización y aprobación por escrito del cliente para ser implementado.
+                    </p>
+                </div>
+                 <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center border border-gray-700">
+                    <div class="text-5xl mb-4 text-teal-400">👥</div>
+                    <h3 class="text-xl font-bold text-teal-400 mb-2">Independencia y Jurisdicción</h3>
+                    <p class="text-gray-400">
+                        El contrato es de naturaleza comercial, sin relación laboral. Cualquier disputa se resolverá mediante arbitraje en la Cámara de Comercio de Medellín, bajo la ley colombiana.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Corporate Panel Section (from plan.txt) -->
+        <section role="region" aria-labelledby="corporate-panel-title" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 id="corporate-panel-title" class="section-title text-white">Panel Corporativo: Visión Estratégica en Tiempo Real</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Un dashboard consolidado para la Dirección, CEO e Inversión, ofreciendo métricas clave y una visión integral del negocio.</p>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-md">
+                    <h3 class="text-xl font-bold text-indigo-400 mb-4">KPIs por Módulo</h3>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2">
+                        <li><strong>Ventas:</strong> Monitoreo de ingresos y crecimiento.</li>
+                        <li><strong>Margen:</strong> Análisis de rentabilidad por producto/servicio.</li>
+                        <li><strong>Rotación:</strong> Seguimiento de inventario y eficiencia logística.</li>
+                        <li><strong>Tiempos Logísticos:</strong> Rendimiento en picking, packing y despacho.</li>
+                        <li><strong>Abandono:</strong> Tasa de retención de clientes.</li>
+                    </ul>
+                    <p class="text-gray-400 mt-4">La visualización financiera y logística es en tiempo real, con la capacidad de filtrar por: <strong>país, zona, producto, asesor y socio aliado</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contract PDF and Digital Signature Section (from infografia.html) -->
+        <section id="documento" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <h2 class="text-3xl font-black text-white text-center mb-8">Contrato Oficial</h2>
+            <div id="contract-document" class="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700">
+                <h3 class="text-xl font-bold text-indigo-400 mb-4">Visualización del Documento Anexo</h3>
+                <p class="text-gray-400 mb-6">A continuación se presenta el documento del contrato para su revisión.</p>
+                
+                <div class="border border-gray-700 rounded-lg overflow-hidden mb-8">
+                    <!-- Adjusted iframe src to point to contrato.pdf in root -->
+                    <iframe src="contrato.pdf" width="100%" height="700px" style="border: none;">
+                        <p class="text-gray-400 p-4">Su navegador no soporta iframes. Por favor, descargue el PDF para verlo.</p>
+                    </iframe>
+                </div>
+
+                <div class="text-center space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- Adjusted download href to point to contrato.pdf in root -->
+                    <a href="contrato.pdf" download="Contrato_Firmado_JAPANI_DIGITAL.pdf" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-500 transition-transform transform hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Descargar Contrato Firmado
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Details and Architecture Section (from plan.txt) -->
+        <section id="technical-details" class="py-20 bg-gray-900 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="section-title text-white">Detalles Técnicos y Arquitectura</h2>
+                    <p class="text-gray-400 mt-4 max-w-3xl mx-auto">Una mirada profunda a la tecnología que impulsa JAPANI DIGITAL.</p>
+                </div>
+                <div class="space-y-6">
+                    <!-- Tech Stack -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-indigo-400" onclick="toggleDetails('techStackDetails')">
+                            <span>Stack Tecnológico Propuesto</span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="techStackDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="techStackDetails" class="mt-4 text-gray-400 expandable-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Backend:</strong> Node.js (NestJS) + Modulos Python + PostgreSQL</li>
+                                <li><strong>Frontend Web:</strong> React + Next.js</li>
+                                <li><strong>Cache:</strong> Redis</li>
+                                <li><strong>Notificaciones:</strong> WebSocket + Firebase</li>
+                                <li><strong>IA / OCR:</strong> OpenAI GPT-4.5, Azure Cognitive Services</li>
+                                <li><strong>Infraestructura:</strong> Docker, Kubernetes, CI/CD GitHub Actions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Folder Architecture -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-pink-400" onclick="toggleDetails('folderArchitectureDetails')">
+                            <span>Arquitectura de Carpetas (Sujeta a cambios) </span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="folderArchitectureDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="folderArchitectureDetails" class="mt-4 text-gray-400 expandable-content">
+                            <pre class="bg-gray-700 p-4 rounded-md text-sm overflow-auto">
+/
+├── apps/
+│   ├── api/                      # Backend principal NestJS
+│   └── admin-dashboard/         # Panel administrativo en React
+│            
+│
+├── libs/
+│   ├── auth/                    # Módulo de autenticación y autorización
+│   ├── database/                # Prisma ORM, migraciones, validaciones
+│   ├── ai-core/                 # Lógica de IA y predicciones (recompra, abandono, rotación)
+│   └── ui/                      # Componentes de UI compartidos
+│
+├── modules/
+│   ├── users/                   # Registro, login, perfiles, roles
+│   ├── crm/                     # Ficha de cliente, IA, tags, oportunidades
+│   ├── catalog/                 # Productos, categorías, promociones, precios por perfil
+│   ├── orders/                  # Pedido, estado, trazabilidad
+│   ├── payments/                # Validación pagos, cupos, integración PSE
+│   ├── logistics/               # Picking, packing, guías, API transportadoras
+│   ├── inventory/               # Stock, rotación, reabastecimiento, sugerencias de compra
+│   ├── marketing/               # Campañas automatizadas, segmentación IA
+│   ├── rewards/                 # Puntos, niveles, historial de recompensas
+│   ├── postventa/               # Garantías, reclamos, casos
+│   └── reporting/               # KPI por rol, visual financiero y logístico
+│
+├── integrations/
+│   ├── erp/                     # Sincronización con EFIX, Odoo, SAP
+│   ├── whatsapp/                # Meta API / Twilio para contacto
+│   ├── payments/                # Stripe, MercadoPago, Wompi, PSE
+│   └── shipping/                # Coordinadora, Envía, Redetrans
+│
+├── prisma/                     # Esquema de base de datos y relaciones
+├── docker/                     # Dockerfiles y despliegue
+├── .env                        # Variables de entorno
+└── README.md                   # Guía técnica del proyecto
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Functionalities (API Endpoints) -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-teal-400" onclick="toggleDetails('apiEndpointsDetails')">
+                            <span>Funcionalidades Detalladas (API Endpoints)</span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="apiEndpointsDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="apiEndpointsDetails" class="mt-4 text-gray-400 expandable-content">
+                            <h5 class="font-bold text-md mb-2 text-indigo-300">Autenticación</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /auth/login`</li>
+                                <li>`POST /auth/register`</li>
+                                <li>`GET  /auth/me`</li>
+                            </ul>
+                            <h5 class="font-bold text-md mt-4 mb-2 text-pink-300">CRM</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`GET  /crm/client/:id`</li>
+                                <li>`POST /crm/note`</li>
+                                <li>`POST /crm/contact-history`</li>
+                                <li>`POST /crm/ia-suggestion`</li>
+                            </ul>
+                            <h5 class="font-bold text-md mt-4 mb-2 text-teal-300">Catálogo y Productos</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`GET  /catalog`</li>
+                                <li>`GET  /catalog/sku/:id`</li>
+                                <li>`POST /catalog/promotions`</li>
+                            </ul>
+                            <h5 class="font-bold text-md mt-4 mb-2 text-indigo-300">Pedidos</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /orders/create`</li>
+                                <li>`GET  /orders/:clienteId`</li>
+                                <li>`PATCH /orders/:id/status`</li>
+                            </ul>
+                            <h5 class="font-bold text-md mt-4 mb-2 text-pink-300">Pagos</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /payments/validate`</li>
+                                <li>`POST /payments/transfer-proof`</li>
+                                <li>`GET  /payments/cupo/:clienteId`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-teal-300">Logística</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /logistics/assign-pick`</li>
+                                <li>`POST /logistics/verify-pack`</li>
+                                <li>`POST /logistics/generate-guide`</li>
+                                <li>`GET  /logistics/tracking/:orderId`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-indigo-300">Inventario</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`GET  /inventory/stock-level/:sku`</li>
+                                <li>`POST /inventory/replenishment-request`</li>
+                                <li>`POST /inventory/predict-rotation`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-pink-300">Marketing</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /marketing/campaign`</li>
+                                <li>`GET  /marketing/report/:id`</li>
+                                <li>`POST /marketing/auto-segment`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-teal-300">Recompensas</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /rewards/assign-points`</li>
+                                <li>`GET  /rewards/:clienteId`</li>
+                                <li>`POST /rewards/redeem`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-indigo-300">Postventa</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`POST /postventa/create-case`</li>
+                                <li>`GET  /postventa/status/:caseId`</li>
+                            </ul>
+                             <h5 class="font-bold text-md mt-4 mb-2 text-pink-300">Reporting</h5>
+                            <ul class="list-disc list-inside">
+                                <li>`GET  /reporting/kpi/by-role`</li>
+                                <li>`GET  /reporting/kpi/global`</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Key Integrations -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-indigo-400" onclick="toggleDetails('integrationsDetails')">
+                            <span>Integraciones Destacadas</span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="integrationsDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="integrationsDetails" class="mt-4 text-gray-400 expandable-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Webhook con ERP para sincronización de cartera y facturación</li>
+                                <li>Webhook de PSE y pasarelas para validación inmediata de pago</li>
+                                <li>Conexión con APIs de guías de Coordinadora, Envía, Redetrans</li>
+                                <li>Envío de notificaciones por WhatsApp, email y panel</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Automated AI -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-pink-400" onclick="toggleDetails('aiAutomationDetails')">
+                            <span>IA Automatizada</span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="aiAutomationDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="aiAutomationDetails" class="mt-4 text-gray-400 expandable-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>CRM: análisis de intención de recompra o fuga</li>
+                                <li>Inventario: predicción de rotación por SKU y alerta por sobrestock</li>
+                                <li>Marketing: segmentación automática por IA (historial, hábitos, geo)</li>
+                                <li>Cartera: scoring de riesgo y sugerencia de crédito</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Deployment -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+                        <button class="flex justify-between items-center w-full text-left font-bold text-xl text-teal-400" onclick="toggleDetails('deploymentDetails')">
+                            <span>Estrategia de Despliegue</span>
+                            <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" id="deploymentDetailsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="deploymentDetails" class="mt-4 text-gray-400 expandable-content">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Dockerizado por módulo</strong></li>
+                                <li><strong>CI/CD con GitHub Actions</strong></li>
+                                <li><strong>Kubernetes + Load balancer (NGINX)</strong></li>
+                                <li><strong>Monitoring: Grafana + Prometheus</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section with Contact Form (from propuesta.html) -->
+        <section id="contact-form" role="region" aria-labelledby="cta-title" class="py-20 bg-gray-800 rounded-xl mx-4 my-8 shadow-xl fade-in">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h2 id="cta-title" class="text-4xl font-black text-white mb-4">¡Construyamos Juntos el Futuro de JAPANI DIGITAL!</h2>
+                    <p class="text-gray-300 mt-4 text-lg mb-8"><strong>Esta propuesta no es solo un documento, es el primer paso hacia una transformación digital sin precedentes.</strong> En OrquestIA, estamos listos para ser su socio tecnológico estratégico y asegurar el éxito rotundo de JAPANI DIGITAL.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-700 rounded-t-lg">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-400">
+            <p>&copy; 2025 OrquestIA. <strong>Propuesta e Infografía del Contrato preparada exclusivamente para JAPANI DIGITAL.</strong></p>
+            <p class="text-sm mt-2">Medellín, Colombia</p>
+        </div>
+    </footer>
+
+    <!-- Modal Message Structure (from propuesta.html) -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="close-button">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-white"><strong>¡Mensaje Enviado con Éxito!</strong></h3>
+            <p class="text-gray-300"><strong>Gracias por tu interés. Nos pondremos en contacto contigo a la brevedad.</strong></p>
+        </div>
+    </div>
+
+    <!-- Modal para firmar digitalmente (from infografia.html) -->
+    <div id="modalFirma" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 max-w-lg border border-gray-700">
+            <h3 class="text-xl font-bold text-indigo-400 mb-4">Firmar Digitalmente</h3>
+            <p class="text-gray-400 mb-4">Dibuje su firma en el área proporcionada y haga clic en "<strong>Guardar Firma</strong>" para completar el proceso.</p>
+
+            <canvas id="canvasFirma" class="border border-gray-600 w-full h-40 mb-4 bg-gray-700"></canvas>
+
+            <div class="flex justify-between">
+                <button onclick="cerrarModalFirma()" class="bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700">Cancelar</button>
+                <button onclick="guardarFirma()" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-500">Guardar Firma</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js script for Investment Chart (from propuesta.html)
+        // Adjusted data for investment distribution: Finanzas y Operaciones (30%), rest distributed to others
+        const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Comercio y Cliente', 'Finanzas y Operaciones', 'Inteligencia y Crecimiento'],
+                datasets: [{
+                    // Data values to maintain the strategic distribution, with Finanzas y Operaciones at ~30%
+                    data: [33411.7, 25490.7, 26066.6], 
+                    backgroundColor: [
+                        '#4338CA', // Indigo
+                        '#DB2777', // Pink
+                        '#14B8A6'  // Teal
+                    ],
+                    borderColor: '#1F2937', // Body background color
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#D1D5DB', // Light grey text
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    let total = context.chart.getDatasetMeta(0).total;
+                                    let percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    label += new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(context.parsed) + ` (${percentage}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const defaultBarOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // Horizontal bars
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: '#9CA3AF', font: {size: 10} },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                y: {
+                    ticks: { color: '#D1D5DB', font: { weight: 'bold' } },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        };
+
+        // Cost Chart (from propuesta.html)
+        new Chart(document.getElementById('costChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Costo',
+                    data: [95000, 84969],
+                    backgroundColor: ['#4B5563', 'rgba(99, 102, 241, 0.8)'], // Gray and Indigo
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(c.raw) 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Time Chart (from propuesta.html)
+        new Chart(document.getElementById('timeChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Meses',
+                    data: [9, 6],
+                    backgroundColor: ['#4B5563', 'rgba(219, 39, 119, 0.8)'], // Gray and Pink
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => `${c.raw} meses` 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Innovation Chart (from propuesta.html)
+        new Chart(document.getElementById('innovationChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Agencia Tradicional', 'OrquestIA'],
+                datasets: [{
+                    label: 'Nivel',
+                    data: [6, 9], // Example data for innovation level
+                    backgroundColor: ['#4B5563', 'rgba(20, 184, 166, 0.8)'], // Gray and Teal
+                    borderRadius: 4,
+                }]
+            },
+            options: { 
+                ...defaultBarOptions, 
+                scales: {
+                    x: {
+                        ...defaultBarOptions.scales.x,
+                        max: 10 // Assuming a scale of 1-10 for innovation
+                    }
+                },
+                plugins: { 
+                    ...defaultBarOptions.plugins, 
+                    tooltip: { 
+                        callbacks: { 
+                            label: (c) => `Nivel ${c.raw}` 
+                        } 
+                    } 
+                } 
+            }
+        });
+
+        // Payment Chart (from infografia.html)
+        const brilliantBlues = ['#4F46E5', '#6366F1', '#818CF8', '#A5B4FC', '#C7D2FE', '#E0E7FF']; // Shades of Indigo for consistency
+        
+        function wrapLabel(label, maxLength = 16) {
+            if (typeof label !== 'string' || label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine.length > 0) {
+                lines.push(currentLine);
+            }
+            return lines;
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const commonPlugins = {
+            legend: {
+                labels: {
+                    color: '#D1D5DB', // Light gray text
+                     font: {
+                        family: 'Inter',
+                        size: 14,
+                    }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                },
+                 bodyFont: {
+                    family: 'Inter'
+                },
+                titleFont: {
+                    family: 'Inter'
+                }
+            }
+        };
+        
+        const paymentData = {
+            labels: ['Pago Inicial (50%)', 'Hito 1 (10%)', 'Hito 2 (10%)', 'Hito 3 (10%)', 'Hito 4 (10%)', 'Hito 5 (5%)', 'Hito 6 (5%)'],
+            datasets: [{
+                label: 'Distribución de Pagos',
+                data: [50, 10, 10, 10, 10, 5, 5],
+                backgroundColor: brilliantBlues,
+                borderColor: '#1F2937', // Body background color
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        };
+
+        const paymentChartCtx = document.getElementById('paymentChart').getContext('2d');
+        new Chart(paymentChartCtx, {
+            type: 'doughnut',
+            data: paymentData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: commonPlugins
+            }
+        });
+        
+        const sprintDeliverablesData = {
+            labels: [
+                wrapLabel('Autenticación y Catálogo Central'),
+                wrapLabel('Experiencia de Carrito y Pagos Seguros'),
+                wrapLabel('Gestión de Cartera y Paneles de Control'),
+                wrapLabel('Logística (WMS) y Flujo de Despachos'),
+                wrapLabel('Control de Inventario y Postventa Automatizada'),
+                wrapLabel('IA, Marketing Estratégico y Fidelización')
+            ],
+            datasets: [{
+                label: 'Valor del Hito (USD)',
+                data: [8496.90, 8496.90, 8496.90, 8496.90, 4248.45, 4248.45],
+                backgroundColor: brilliantBlues,
+                borderColor: '#1F2937', // Body background color
+                borderWidth: 1,
+                borderRadius: 5
+            }]
+        };
+        
+        const sprintDeliverablesCtx = document.getElementById('sprintDeliverablesChart').getContext('2d');
+        new Chart(sprintDeliverablesCtx, {
+            type: 'bar',
+            data: sprintDeliverablesData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                             color: '#D1D5DB', // Light gray text
+                             font: { family: 'Inter' }
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        ticks: {
+                             color: '#D1D5DB', // Light gray text
+                             font: { family: 'Inter' }
+                        },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                     tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        },
+                         bodyFont: {
+                            family: 'Inter'
+                        },
+                        titleFont: {
+                            family: 'Inter'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Fade-in animation for sections on scroll (from propuesta.html)
+        const faders = document.querySelectorAll(".fade-in");
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px" // Start animation 50px before entering viewport
+        };
+        const appearOnScroll = new IntersectionObserver(function(
+            entries,
+            appearOnScroll
+        ) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add("fade-in-active"); // Use a class that triggers animation
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            fader.classList.remove("fade-in"); // Remove initial fade-in from HTML
+            appearOnScroll.observe(fader);
+        });
+
+        // Add a class for active fade-in animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .fade-in-active {
+                animation: fadeIn 0.8s ease-out forwards;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth scroll for anchor links (from infografia.html and propuesta.html)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Modal for signature (from infografia.html)
+        const modalFirma = document.getElementById('modalFirma');
+        const canvas = document.getElementById('canvasFirma');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        function abrirModalFirma() {
+            modalFirma.classList.remove('hidden');
+        }
+
+        function cerrarModalFirma() {
+            modalFirma.classList.add('hidden');
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+            ctx.strokeStyle = '#E5E7EB'; // White color for signature
+            ctx.lineWidth = 2;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('mouseout', () => {
+            isDrawing = false;
+        });
+
+        function guardarFirma() {
+            const dataURL = canvas.toDataURL();
+            console.log('Firma guardada:', dataURL); // Here you can send the signature to the server or process it
+            // Using a custom modal instead of alert for better UX
+            showCustomAlert('Firma guardada con éxito.', 'success');
+            cerrarModalFirma();
+        }
+
+        // Custom Alert/Confirmation Modal (replacement for alert/confirm)
+        function showCustomAlert(message, type = 'info') {
+            const alertModalOverlay = document.createElement('div');
+            alertModalOverlay.id = 'customAlertOverlay';
+            alertModalOverlay.classList.add('modal-overlay'); // Reuse existing modal overlay styles
+            alertModalOverlay.innerHTML = `
+                <div class="modal-content">
+                    <button id="closeAlertModal" class="close-button">&times;</button>
+                    <h3 class="text-2xl font-bold mb-4 text-white">${type === 'success' ? '¡Éxito!' : 'Información'}</h3>
+                    <p class="text-gray-300">${message}</p>
+                </div>
+            `;
+            document.body.appendChild(alertModalOverlay);
+            setTimeout(() => alertModalOverlay.classList.add('open'), 10); // Show it
+
+            document.getElementById('closeAlertModal').addEventListener('click', () => {
+                alertModalOverlay.classList.remove('open');
+                setTimeout(() => alertModalOverlay.remove(), 300); // Remove after transition
+            });
+
+            alertModalOverlay.addEventListener('click', (event) => {
+                if (event.target === alertModalOverlay) {
+                    alertModalOverlay.classList.remove('open');
+                    setTimeout(() => alertModalOverlay.remove(), 300);
+                }
+            });
+        }
+
+        // Function to toggle details for expandable sections
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            const arrow = document.getElementById(id + 'Arrow');
+            if (element.classList.contains('open')) {
+                element.classList.remove('open');
+                arrow.classList.remove('rotate-180');
+            } else {
+                element.classList.add('open');
+                arrow.classList.add('rotate-180');
+            }
+        }
+
+        // Function to toggle module details
+        function toggleModuleDetails(buttonElement, detailsId) {
+            const detailsElement = document.getElementById(detailsId);
+            const arrowElement = buttonElement.querySelector(`[data-arrow="${detailsId}"]`);
+
+            if (detailsElement.classList.contains('open')) {
+                detailsElement.classList.remove('open');
+                arrowElement.classList.remove('rotate-180');
+            } else {
+                detailsElement.classList.add('open');
+                arrowElement.classList.add('rotate-180');
+            }
+        }
+    </script>
+</body>
+</html>
